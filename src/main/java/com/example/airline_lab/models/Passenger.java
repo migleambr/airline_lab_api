@@ -1,14 +1,35 @@
 package com.example.airline_lab.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity(name = "passengers")
 public class Passenger {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
+    @Column
     private String emailAddress;
+
+    @ManyToMany
+    @JoinTable(
+            name = "passengers_flights",
+            joinColumns = {@JoinColumn(name = "passenger_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "flight_id", nullable = false)}
+    )
+    @JsonIgnoreProperties({"passengers"})
+    private List<Flight> flights;
 
     public Passenger(String name, String emailAddress) {
         this.name = name;
         this.emailAddress = emailAddress;
+        this.flights = new ArrayList<>();
     }
 
     public Passenger() {
@@ -37,6 +58,14 @@ public class Passenger {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 
 }
