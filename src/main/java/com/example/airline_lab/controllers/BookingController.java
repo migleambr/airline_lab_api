@@ -19,7 +19,7 @@ public class BookingController {
     BookingService bookingService;
 
     // Book a passenger on to a flight
-    @PostMapping
+    @PatchMapping
     public ResponseEntity<Booking> bookPassengerToFlight(@RequestParam long passengerId, long flightId) {
         Booking booking = bookingService.bookPassengerToFlight(passengerId, flightId);
         return new ResponseEntity<>(booking, HttpStatus.CREATED);

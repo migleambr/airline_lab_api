@@ -26,8 +26,8 @@ public class FlightController {
 
     // Display details of a specific flight
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Flight> getFlightById(@PathVariable Long id) {
-        Optional<Flight> flight = flightService.getFlightById(id);
+    public ResponseEntity<Flight> getFlightById(@PathVariable Long flightId) {
+        Optional<Flight> flight = flightService.getFlightById(flightId);
         if(flight.isPresent()) {
             return new ResponseEntity<>(flight.get(), HttpStatus.OK);
         } else {
@@ -40,6 +40,13 @@ public class FlightController {
     public ResponseEntity<Flight> addNewFlight(@RequestBody Flight flight) {
         Flight savedFlight = flightService.addNewFlight(flight);
         return new ResponseEntity<>(savedFlight, HttpStatus.CREATED);
+    }
+
+    // Cancel a flight
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity cancelFlight(@PathVariable Long flightId) {
+        flightService.cancelFlight(flightId);
+        return new ResponseEntity<>(null, HttpStatus.GONE);
     }
 
 }
