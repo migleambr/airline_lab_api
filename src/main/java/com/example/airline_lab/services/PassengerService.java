@@ -26,8 +26,8 @@ public class PassengerService {
     }
 
     // Display details of a specific passenger
-    public Optional<Passenger> getPassengerById(Long id) {
-        return passengerRepository.findById(id);
+    public Optional<Passenger> getPassengerById(Long passengerId) {
+        return passengerRepository.findById(passengerId);
     }
 
 }

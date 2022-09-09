@@ -20,14 +20,19 @@ public class FlightService {
         return flight;
     }
 
+    // Cancel a flight
+    public void cancelFlight(Long flightId) {
+        flightRepository.deleteById(flightId);
+    }
+
     // Display all available flights
     public List<Flight> getAllFlights() {
         return flightRepository.findAll();
     }
 
     // Display details of a specific flight
-    public Optional<Flight> getFlightById(Long id) {
-        return flightRepository.findById(id);
+    public Optional<Flight> getFlightById(Long flightId) {
+        return flightRepository.findById(flightId);
     }
 
 }
